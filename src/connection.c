@@ -35,7 +35,7 @@
  * Check "connection.h" for more information.
  */
 
-struct rkConnection_t RK_CON={0,0,0,0};
+struct rkconnection_t RK_CON={0,0,0,0};
 rkbool_t RK_CONNECTED=0;
 
 rkbool_t rk_connect(void){
