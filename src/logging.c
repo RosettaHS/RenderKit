@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#include "include/logging.h"
+#include "logging.h"
 
 void LOG(const char* text, ...){
 	va_list arg;

@@ -28,7 +28,7 @@
 
 /* This is for internal use ONLY! Do not include this unless you know what you're doing! */
 
-#include "common.h"
+#include "include/common.h"
 
 _RKBEGIN
 

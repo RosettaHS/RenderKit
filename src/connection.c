@@ -27,7 +27,7 @@
 
 #include <stdlib.h>
 #include <xcb/xcb.h>
-#include "include/logging.h"
+#include "logging.h"
 #include "include/connection.h"
 
 /*
