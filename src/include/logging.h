@@ -35,7 +35,7 @@ _RKBEGIN
 /* Logs a generic message out to the terminal. */
 extern void LOG(const char* text, ...);
 /* Emits an error with the given error code and logs out the formatted text out to the terminal, and if "autoQuit" is not 0, the program will quit. */
-extern void ERROR(rk_err errcode, rk_bool autoQuit, const char* reason, ...);
+extern void ERROR(rkerr_t errcode, rkbool_t autoQuit, const char* reason, ...);
 /* Emits a formatted warning message out to the terminal. */
 extern void WARN(const char* reason, ...);
 

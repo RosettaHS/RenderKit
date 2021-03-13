@@ -35,10 +35,10 @@
  * Check "connection.h" for more information.
  */
 
-struct rk_connection RK_CON={0,0,0,0};
-rk_bool RK_CONNECTED=0;
+struct rkConnection_t RK_CON={0,0,0,0};
+rkbool_t RK_CONNECTED=0;
 
-rk_bool rk_connect(void){
+rkbool_t rk_connect(void){
 	if(RK_CONNECTED){ return 0; }
 	RK_CON.XCB_CON=xcb_connect(0,&RK_CON.XCB_SID);
 	if(xcb_connection_has_error(XCON)){ return 0; }
@@ -52,7 +52,7 @@ rk_bool rk_connect(void){
 	return 1;
 }
 
-rk_bool rk_disconnect(void){
+rkbool_t rk_disconnect(void){
 	if(!RK_CONNECTED){ return 0; }
 	xcb_disconnect(XCON);
 	RK_CON.XCB_CON=0;

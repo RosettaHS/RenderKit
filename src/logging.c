@@ -37,7 +37,7 @@ void LOG(const char* text, ...){
 	va_end(arg);
 }
 
-void ERROR(rk_err errcode, rk_bool autoQuit, const char* reason, ...){
+void ERROR(rkerr_t errcode, rkbool_t autoQuit, const char* reason, ...){
 	LOG("RENDERKIT | ERROR! [%lu] | ",errcode);
 	va_list arg;
 	va_start(arg,reason);

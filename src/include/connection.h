@@ -32,17 +32,17 @@ _RKBEGIN
 
 #ifdef RK_INTERNAL
 	/* Internal. A struct that contains internal X connection information. */
-	struct rk_connection{
-		void*  XCB_CON;
-		void*  XCB_SCR;
-		int    XCB_SID;
-		rk_gid XCB_ROOT;
+	struct rkConnection_t{
+		void*   XCB_CON;
+		void*   XCB_SCR;
+		int     XCB_SID;
+		rkgid_t XCB_ROOT;
 	};
 
 	/* Internal. A global instance of a struct that contains internal X connection information for this program. */
-	extern struct rk_connection RK_CON;
+	extern struct rkConnection_t RK_CON;
 	/* Internal. A boolean that states whether RenderKit has been fully initialised. */
-	extern rk_bool RK_CONNNECTED;
+	extern rkbool_t RK_CONNNECTED;
 
 	/* Wrapper if() statement. Will only run the code in the brackets if RenderKit has been successfully initalised. */
 	#define CONNECTED if(RK_CONNNECTED)
@@ -60,9 +60,9 @@ _RKBEGIN
 #endif /* RK_INTERNAL */
 
 /* Activates the RenderKit service. Required for use of any RenderKit elements. Returns 1 on success. */
-extern rk_bool rk_connect(void);
+extern rkbool_t rk_connect(void);
 /* Disconnects from the RenderKit service. Returns 1 on success. */
-extern rk_bool rk_disconnect(void);
+extern rkbool_t rk_disconnect(void);
 
 _RKEND
 
