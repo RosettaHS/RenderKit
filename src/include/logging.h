@@ -23,16 +23,22 @@
 /*                                                                                */
 /**********************************************************************************/
 
-#ifndef __RENDERKIT_H__
-#define __RENDERKIT_H__
+#ifndef __RENDERKIT_LOGGING_H__
+#define __RENDERKIT_LOGGING_H__
 
-#include <stdint.h>
-#include <sys/types.h>
+/* This is for internal use ONLY! Do not include this unless you know what you're doing! */
 
 #include "common.h"
-#include "connection.h"
 
-#undef _RKBEGIN
-#undef _RKEND
+_RKBEGIN
 
-#endif /* !__RENDERKIT_H__ */
+/* Logs a generic message out to the terminal. */
+extern void LOG(const char* text, ...);
+/* Emits an error with the given error code and logs out the formatted text out to the terminal, and if "autoQuit" is not 0, the program will quit. */
+extern void ERROR(rk_err errcode, rk_bool autoQuit, const char* reason, ...);
+/* Emits a formatted warning message out to the terminal. */
+extern void WARN(const char* reason, ...);
+
+_RKEND
+
+#endif /* !__RENDERKIT_LOGGING_H__*/

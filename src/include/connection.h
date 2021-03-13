@@ -23,16 +23,47 @@
 /*                                                                                */
 /**********************************************************************************/
 
-#ifndef __RENDERKIT_H__
-#define __RENDERKIT_H__
-
-#include <stdint.h>
-#include <sys/types.h>
+#ifndef __RENDERKIT_CONNECTION_H__
+#define __RENDERKIT_CONNECTION_H__
 
 #include "common.h"
-#include "connection.h"
 
-#undef _RKBEGIN
-#undef _RKEND
+_RKBEGIN
 
-#endif /* !__RENDERKIT_H__ */
+#ifdef RK_INTERNAL
+	/* Internal. A struct that contains internal X connection information. */
+	struct rk_connection{
+		void*  XCB_CON;
+		void*  XCB_SCR;
+		int    XCB_SID;
+		rk_gid XCB_ROOT;
+	};
+
+	/* Internal. A global instance of a struct that contains internal X connection information for this program. */
+	extern struct rk_connection RK_CON;
+	/* Internal. A boolean that states whether RenderKit has been fully initialised. */
+	extern rk_bool RK_CONNNECTED;
+
+	/* Wrapper if() statement. Will only run the code in the brackets if RenderKit has been successfully initalised. */
+	#define CONNECTED if(RK_CONNNECTED)
+	/*** The following #defines require the inclusion of <xcb/xcb.h> ***/
+
+	/* Casts the RenderKit connection pointer to a usable xcb_connection_t pointer. */
+	#define XCON  ((xcb_connection_t*)RK_CON.XCB_CON)
+	/* Casts the RenderKit screen pointer to a usable xcb_screen_t pointer. */
+	#define XSCR  ((xcb_screen_t*)RK_CON.XCB_SCR)
+	/* Retrieves the RenderKit connection screen ID. */
+	#define XSID  (RK_CON.XCB_SID)
+	/* Retrieves the RenderKit connection root context ID. */
+	#define XROOT (RK_CON.XCB_ROOT)
+
+#endif /* RK_INTERNAL */
+
+/* Activates the RenderKit service. Required for use of any RenderKit elements. Returns 1 on success. */
+extern rk_bool rk_connect(void);
+/* Disconnects from the RenderKit service. Returns 1 on success. */
+extern rk_bool rk_disconnect(void);
+
+_RKEND
+
+#endif /* !__RENDERKIT_CONNECTION_H__*/

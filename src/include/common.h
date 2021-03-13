@@ -37,11 +37,19 @@
 	#define _RKEND
 #endif
 
+_RKBEGIN
+
+/*** Generic types ***/
+
 /* A Boolean, can be 1 or 0. */
 typedef _Bool rk_bool;
-/* Used for colouring RenderElements. */
+/* Used for colouring Elements. */
 typedef unsigned long rk_col;
-/* A generic identifier for all RenderElements. */
-typedef void* rk_gid;
+/* A generic identifier for all Elements. */
+typedef uint32_t rk_gid;
+/* Emitted by a RenderKit function whenever there is an error or warning, check "errdef.h" for the definition of the error code. */
+typedef uint16_t rk_err;
+
+_RKEND
 
 #endif /* !__RENDERKIT_COMMON_H__ */

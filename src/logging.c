@@ -23,16 +23,33 @@
 /*                                                                                */
 /**********************************************************************************/
 
-#ifndef __RENDERKIT_H__
-#define __RENDERKIT_H__
+#define RK_INTERNAL
 
-#include <stdint.h>
-#include <sys/types.h>
+#include <stdio.h>
+#include <stdarg.h>
+#include <stdlib.h>
+#include "include/logging.h"
 
-#include "common.h"
-#include "connection.h"
+void LOG(const char* text, ...){
+	va_list arg;
+	va_start(arg,text);
+	vfprintf(stdout,text,arg);
+	va_end(arg);
+}
 
-#undef _RKBEGIN
-#undef _RKEND
+void ERROR(rk_err errcode, rk_bool autoQuit, const char* reason, ...){
+	LOG("RENDERKIT | ERROR! [%lu] | ",errcode);
+	va_list arg;
+	va_start(arg,reason);
+	vfprintf(stderr,reason,arg);
+	va_end(arg);
+	if(autoQuit){ exit(errcode); }
+}
 
-#endif /* !__RENDERKIT_H__ */
+void WARN(const char* reason, ...){
+	LOG("RENDERKIT | WARNING! | ");
+	va_list arg;
+	va_start(arg,reason);
+	vfprintf(stderr,reason,arg);
+	va_end(arg);
+}

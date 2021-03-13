@@ -23,16 +23,42 @@
 /*                                                                                */
 /**********************************************************************************/
 
-#ifndef __RENDERKIT_H__
-#define __RENDERKIT_H__
+#define RK_INTERNAL
 
-#include <stdint.h>
-#include <sys/types.h>
+#include <stdlib.h>
+#include <xcb/xcb.h>
+#include "include/logging.h"
+#include "include/connection.h"
 
-#include "common.h"
-#include "connection.h"
+/*
+ * NOTE: "XCON", "XSCR", "XSID", and "XROOT" are #defines just to retrieve RK_CON's values easier, and without potential tampering. 
+ * Check "connection.h" for more information.
+ */
 
-#undef _RKBEGIN
-#undef _RKEND
+struct rk_connection RK_CON={0,0,0,0};
+rk_bool RK_CONNECTED=0;
 
-#endif /* !__RENDERKIT_H__ */
+rk_bool rk_connect(void){
+	if(RK_CONNECTED){ return 0; }
+	RK_CON.XCB_CON=xcb_connect(0,&RK_CON.XCB_SID);
+	if(xcb_connection_has_error(XCON)){ return 0; }
+	/* TODO: Replace this with a cleaner solution. XCB's documentation isn't very friendly. */
+	xcb_screen_iterator_t scrite=xcb_setup_roots_iterator( xcb_get_setup(XCON) );
+	for(; scrite.rem; ( --RK_CON.XCB_SID, xcb_screen_next(&scrite) ) ){
+		if(!RK_CON.XCB_SID){ RK_CON.XCB_SCR=scrite.data; break; }
+	}
+	RK_CON.XCB_ROOT=XSCR->root;
+	RK_CONNECTED=1;
+	return 1;
+}
+
+rk_bool rk_disconnect(void){
+	if(!RK_CONNECTED){ return 0; }
+	xcb_disconnect(XCON);
+	RK_CON.XCB_CON=0;
+	RK_CON.XCB_SCR=0;
+	RK_CON.XCB_SID=0;
+	RK_CON.XCB_ROOT=0;
+	RK_CONNECTED=0;
+	return 1;
+}
