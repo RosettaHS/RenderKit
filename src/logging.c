@@ -30,15 +30,15 @@
 #include <stdlib.h>
 #include "logging.h"
 
-void LOG(const char* text, ...){
+void RK_LOG(const char* text, ...){
 	va_list arg;
 	va_start(arg,text);
 	vfprintf(stdout,text,arg);
 	va_end(arg);
 }
 
-void ERROR(rkerr_t errcode, rkbool_t autoQuit, const char* reason, ...){
-	LOG("RENDERKIT | ERROR! [%lu] | ",errcode);
+void RK_ERROR(rkerr_t errcode, rkbool_t autoQuit, const char* reason, ...){
+	RK_LOG("RENDERKIT | ERROR! [%lu] | ",errcode);
 	va_list arg;
 	va_start(arg,reason);
 	vfprintf(stderr,reason,arg);
@@ -46,8 +46,8 @@ void ERROR(rkerr_t errcode, rkbool_t autoQuit, const char* reason, ...){
 	if(autoQuit){ exit(errcode); }
 }
 
-void WARN(const char* reason, ...){
-	LOG("RENDERKIT | WARNING! | ");
+void RK_WARN(const char* reason, ...){
+	RK_LOG("RENDERKIT | WARNING! | ");
 	va_list arg;
 	va_start(arg,reason);
 	vfprintf(stderr,reason,arg);
