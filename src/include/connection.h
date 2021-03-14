@@ -46,10 +46,12 @@ _RKBEGIN
 	/* Internal. A global instance of a struct that contains internal X connection information for this program. */
 	extern struct rkconnection_t RK_CON;
 	/* Internal. A boolean that states whether RenderKit has been fully initialised. */
-	extern rkbool_t RK_CONNNECTED;
+	extern rkbool_t RK_CONNECTED;
 
 	/* Wrapper if() statement. Will only run the code in the brackets if RenderKit has been successfully initalised. */
-	#define CONNECTED if(RK_CONNNECTED)
+	#define XONLY if(RK_CONNECTED)
+	/* Wrapper if() statement. Will only run the code in the brackets if RenderKit's mode is set to RKM_AUTO. */
+	#define XAUTO if(RK_MODE==RKM_AUTO)
 	/*** The following #defines require the inclusion of <xcb/xcb.h> ***/
 
 	/* Casts the RenderKit connection pointer to a usable xcb_connection_t pointer. */
@@ -63,10 +65,33 @@ _RKBEGIN
 
 #endif /* RK_INTERNAL */
 
-/* Activates the RenderKit service. Required for use of any RenderKit elements. Returns 1 on success. */
-extern rkbool_t rk_connect(void);
+/* An enumeration of different modes for RenderKit to run as. */
+typedef enum{
+	/*
+	 * When RK_MODE is set to this, RenderKit will automatically map Contexts and flush requests when they are called,
+	 * much like how Xlib does. This makes RenderKit easier to use, however not as efficient.
+	 */
+	RKM_AUTO,
+	/*
+	 * When RK_MODE is set to this, RenderKit will NOT automatically map Contexts and flush requests when they are called,
+	 * much like how XCB does. This makes RenderKit harder to use, however dramatically increases its efficiency if you use this properly.
+	 */
+	RKM_MANUAL
+}rkmode_t;
+
+/* The operating mode that RenderKit will run as. */
+extern rkmode_t RK_MODE;
+
+/*
+ * Activates the RenderKit service Pass either RKM_AUTO or RKM_MANUAL to set the operating mode. 
+ * Required for use of any RenderKit elements. Returns 1 on success.
+ */
+extern rkbool_t rk_connect(rkmode_t mode);
 /* Disconnects from the RenderKit service. Returns 1 on success. */
 extern rkbool_t rk_disconnect(void);
+
+/* Flushes and sends any pending requests to the X Server. Only call this manually if RK_MODE is RKM_MANUAL. */
+extern rkbool_t rk_flush(void);
 
 _RKEND
 

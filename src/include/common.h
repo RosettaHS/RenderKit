@@ -42,11 +42,13 @@ _RKBEGIN
 /*** Generic types ***/
 
 /* A Boolean, can be 1 or 0. */
-typedef _Bool rkbool_t;
+typedef _Bool    rkbool_t;
 /* Used for colouring Elements. */
 typedef uint32_t rkcol_t;
 /* A generic identifier for all Elements. */
 typedef uint32_t rkgid_t;
+/* Used for RenderKit storing event masks for Elements. */
+typedef uint32_t rkmask_t;
 /* Emitted by a RenderKit function whenever there is an error or warning, check "errdef.h" for the definition of the error code. */
 typedef uint16_t rkerr_t;
 
@@ -57,7 +59,7 @@ typedef enum{
 	RKT_CONTEXT
 }rktype_t;
 
-/* The base for all RenderKit Elements. */
+/* The base for all RenderKit Elements. Used for easily casting Element pointers. */
 typedef struct{
 	/* The Type of this Element. */
 	rktype_t type;

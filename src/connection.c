@@ -29,6 +29,7 @@
 #include <xcb/xcb.h>
 #include "logging.h"
 #include "include/connection.h"
+#include "include/rkcontext.h" /* So we can initialise RK_ROOTCONTEXT. */
 
 /*
  * NOTE: "XCON", "XSCR", "XSID", and "XROOT" are #defines just to retrieve RK_CON's values easier, and without potential tampering. 
@@ -37,8 +38,9 @@
 
 struct rkconnection_t RK_CON={RKT_CONNECTION,0,0,0,0,0};
 rkbool_t RK_CONNECTED=0;
+rkmode_t RK_MODE=RKM_AUTO;
 
-rkbool_t rk_connect(void){
+rkbool_t rk_connect(rkmode_t mode){
 	if(RK_CONNECTED){ return 0; }
 	RK_CON.XCB_CON=xcb_connect(0,&RK_CON.XCB_SID);
 	if(xcb_connection_has_error(XCON)){ return 0; }
@@ -48,7 +50,9 @@ rkbool_t rk_connect(void){
 		if(!RK_CON.XCB_SID){ RK_CON.XCB_SCR=scrite.data; break; }
 	}
 	RK_CON.XCB_ROOT=XSCR->root;
+	RK_ROOTCONTEXT.xid=XSCR->root;
 	RK_CONNECTED=1;
+	RK_MODE=mode;
 	return 1;
 }
 
@@ -61,4 +65,9 @@ rkbool_t rk_disconnect(void){
 	RK_CON.XCB_ROOT=0;
 	RK_CONNECTED=0;
 	return 1;
+}
+
+rkbool_t rk_flush(void){
+	if(RK_CONNECTED){ xcb_flush(XCON); return 1; }
+	else{ return 0; }
 }
