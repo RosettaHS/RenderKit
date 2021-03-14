@@ -33,10 +33,14 @@ _RKBEGIN
 #ifdef RK_INTERNAL
 	/* Internal. A struct that contains internal X connection information. */
 	struct rkconnection_t{
-		void*   XCB_CON;
-		void*   XCB_SCR;
-		int     XCB_SID;
-		rkgid_t XCB_ROOT;
+		/* The Type of this Element - Always RKT_CONNECTION. */
+		rktype_t type;
+		/* The X Identifier of this Element - Always 0. */
+		rkgid_t  xid; /* Unused */
+		void*    XCB_CON;
+		void*    XCB_SCR;
+		int      XCB_SID;
+		rkgid_t  XCB_ROOT;
 	};
 
 	/* Internal. A global instance of a struct that contains internal X connection information for this program. */

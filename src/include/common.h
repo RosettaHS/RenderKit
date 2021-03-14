@@ -44,7 +44,7 @@ _RKBEGIN
 /* A Boolean, can be 1 or 0. */
 typedef _Bool rkbool_t;
 /* Used for colouring Elements. */
-typedef unsigned long rkcol_t;
+typedef uint32_t rkcol_t;
 /* A generic identifier for all Elements. */
 typedef uint32_t rkgid_t;
 /* Emitted by a RenderKit function whenever there is an error or warning, check "errdef.h" for the definition of the error code. */
@@ -52,9 +52,18 @@ typedef uint16_t rkerr_t;
 
 /* An enumeration of RenderKit Elements. */
 typedef enum{
-	RK_ERROR,
-	RK_CONTEXT
+	RKT_ERROR,
+	RKT_CONNECTION,
+	RKT_CONTEXT
 }rktype_t;
+
+/* The base for all RenderKit Elements. */
+typedef struct{
+	/* The Type of this Element. */
+	rktype_t type;
+	/* The X Identifier of this Element. */
+	rkgid_t  xid;
+}rkgeneric_t;
 
 _RKEND
 
