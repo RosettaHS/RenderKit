@@ -83,14 +83,14 @@ if dpkg -s "libxcb1-dev" > /dev/null 2>&1; then
 		case ${conf} in
 			[Yy])
 				echo 'RenderKit : Working on uninstalling "libxcb1-dev".'
-				apt-get purge "libxcb1-dev" -y || { echo 'OrionAP | ERROR! : Failed to uninstall "libxcb1-dev"! Aborting.'; exit 1; }
+				apt-get purge "libxcb1-dev" -y || { echo 'RenderKit | ERROR! : Failed to uninstall "libxcb1-dev"! Aborting.'; exit 1; }
 				echo 'RenderKit : "libxcb1-dev" successfully uninstalled.';;
 		esac
 	else
 		echo "RenderKit : XCB was installed alongside RenderKit and is no longer needed. Uninstalling."
 
 		echo 'RenderKit : Working on uninstalling "libxcb1-dev".'
-		apt-get purge "libxcb1-dev" -y || { echo 'OrionAP | ERROR! : Failed to uninstall "libxcb1-dev"! Aborting.'; exit 1; }
+		apt-get purge "libxcb1-dev" -y || { echo 'RenderKit | ERROR! : Failed to uninstall "libxcb1-dev"! Aborting.'; exit 1; }
 		printf "\nRenderKit : \"libxcb1-dev\" successfully uninstalled.\n"
 	fi
 fi
