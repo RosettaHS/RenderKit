@@ -36,7 +36,7 @@
  * Check "connection.h" for more information.
  */
 
-struct rkconnection_t RK_CON={RKT_CONNECTION,0,0,0,0,0};
+rkconnection_t RK_CON={RKT_CONNECTION,0,0,0,0,0};
 rkbool_t RK_CONNECTED=0;
 rkmode_t RK_MODE=RKM_AUTO;
 

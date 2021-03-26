@@ -32,7 +32,7 @@ _RKBEGIN
 
 #ifdef RK_INTERNAL
 	/* Internal. A struct that contains internal X connection information. */
-	struct rkconnection_t{
+	typedef struct{
 		/* The Type of this Element - Always RKT_CONNECTION. */
 		rktype_t type;
 		/* The X Identifier of this Element - Always 0. */
@@ -41,10 +41,10 @@ _RKBEGIN
 		void*    XCB_SCR;
 		int      XCB_SID;
 		rkgid_t  XCB_ROOT;
-	};
+	}rkconnection_t;
 
 	/* Internal. A global instance of a struct that contains internal X connection information for this program. */
-	extern struct rkconnection_t RK_CON;
+	extern rkconnection_t RK_CON;
 	/* Internal. A boolean that states whether RenderKit has been fully initialised. */
 	extern rkbool_t RK_CONNECTED;
 
