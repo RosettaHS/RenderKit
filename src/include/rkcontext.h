@@ -60,7 +60,7 @@ typedef struct rkcontext_t{
 	rkcol_t  foreCol;
 	/* The size of the border of this Context. */
 	uint16_t borderSize;
-	/* The title of the border of this Context. - Only used in a non-RKCT_ELEMENT Context. */
+	/* The title of this Context if it is a top-level window. - Only used in a non-RKCT_ELEMENT Context. */
 	char*    title;
 }rkcontext_t;
 

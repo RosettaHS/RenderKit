@@ -82,15 +82,22 @@ typedef enum{
 /* The operating mode that RenderKit will run as. */
 extern rkmode_t RK_MODE;
 
-/*
- * Activates the RenderKit service Pass either RKM_AUTO or RKM_MANUAL to set the operating mode. 
- * Required for use of any RenderKit elements. Returns 1 on success.
+/**
+ * @brief Activates the RenderKit service. Required for use of any RenderKit elements.
+ * @param mode The operating mode of the service, either RKM_AUTO or RKM_MANUAL can be passed. 
+ * @return 1 on success.
  */
 extern rkbool_t rk_connect(rkmode_t mode);
-/* Disconnects from the RenderKit service. Returns 1 on success. */
+/**
+ * @brief Disconnects from the RenderKit service.
+ * @return 1 on success.
+ */
 extern rkbool_t rk_disconnect(void);
 
-/* Flushes and sends any pending requests to the X Server. Only call this manually if RK_MODE is RKM_MANUAL. */
+/**
+ * @brief Flushes and sends any pending requests to the X Server. Only call this manually if RK_MODE is RKM_MANUAL. 
+ * @return 1 on success.
+ */
 extern rkbool_t rk_flush(void);
 
 _RKEND
